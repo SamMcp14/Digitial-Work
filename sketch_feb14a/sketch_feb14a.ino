@@ -17,6 +17,9 @@ void loop() {
   if (analogRead(MICPIN) >= 250) {
     digitalWrite(LEDPIN, HIGH);
     boxServo.write(90);
+    delay(100000);
+    boxServo.write(0);
+    digitalWrite(LEDPIN, LOW);
   }
   if (analogRead(BTNPIN) == HIGH) {
     boxServo.write(0);
