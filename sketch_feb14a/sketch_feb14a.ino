@@ -4,6 +4,9 @@ const byte MICPIN = 8;
 const byte SERVOPIN = 10;
 const byte LEDPIN = 5;
 const byte BTNPIN = 4;
+const byte LOUDENOUGH = 512;
+const byte BOXOPEN = 90;
+const byte BOXCLOSE = 0;
 
 Servo boxServo;
 
@@ -14,15 +17,15 @@ void setup() {
 }
 
 void loop() {
-  if (analogRead(MICPIN) >= 250) {
+  if (analogRead(MICPIN) >= LOUDENOUGH) {
     digitalWrite(LEDPIN, HIGH);
-    boxServo.write(90);
+    boxServo.write(BOXOPEN);
     delay(100000);
-    boxServo.write(0);
+    boxServo.write(BOXCLOSE);
     digitalWrite(LEDPIN, LOW);
   }
   if (analogRead(BTNPIN) == HIGH) {
-    boxServo.write(0);
+    boxServo.write(BOXCLOSE);
     digitalWrite(LEDPIN, LOW);
   }
 }
