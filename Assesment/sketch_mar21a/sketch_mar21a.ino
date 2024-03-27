@@ -23,8 +23,8 @@ void setup()
     while (1);
   }
  
-  resultStorage.append("appendMe.txt");
-  resultStorage.println("This is recorded to appendMe.txt");
+  resultStorage.append("resultStorage.txt");
+  resultStorage.println("This is recorded to resultStorage.txt");
  
   resultStorage.syncFile();
 
@@ -47,5 +47,5 @@ void loop()
   Serial.println("               ");
 
   resultStorage.syncFile();
-  delay(40); // Wait - 40 ms corresponds to the maximum update rate of the sensor (25 Hz)
+    delay(1000); // Wait - 40 ms corresponds to the maximum update rate of the sensor (25 Hz)
 }
