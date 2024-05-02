@@ -1,11 +1,10 @@
-//TEACHER COMMENT I would make sure to have a descriptive filename so try doing a save as and calling it
-// assessment or sensorPackage or SamsSensorStuff - your current name will keep you from a merit grade
 #include <Wire.h>
 #include <SparkFun_Qwiic_OpenLog_Arduino_Library.h>
 #include <SparkFun_LPS25HB_Arduino_Library.h>
 
 //TEACHER COMMENT what is this being created for?
 long myTime;
+int myLed = 12;
 
 //TEACHER COMMENT so what are these?
 LPS25HB Sensor;
@@ -16,6 +15,7 @@ void setup() {
   Wire.begin();
   resultStorage.begin();
   Sensor.begin();
+  pinMode(myLed, OUTPUT);
 
   //TEACHER COMMENT what is this checking?
   if (Sensor.isConnected() == false) {
@@ -27,13 +27,13 @@ void setup() {
   //TEACHER COMMENT should you also check the sdcard/resultStorage?
 
   resultStorage.append("resultStorage.txt");
-  resultStorage.println("This is recorded to resultStorage.txt"); //TEACHER COMMENT maybe this and line 36 should be merged?
 
   resultStorage.syncFile();
 
   Serial.println("Done!");
 
 Serial.print("Time,Pressure,Temperature");
+resultStorage.print("Time,Pressure,Temprature");
 }
 
 //TEACHER COMMENT add a comment explaining what this is doing
@@ -51,5 +51,21 @@ void loop() {
   resultStorage.println(Sensor.getTemperature_degC());
 
   resultStorage.syncFile();
+if (Sensor.getPressure_hPa() >= 0) {
+    digitalWrite(myLed, HIGH);
+    delay(10);
+    digitalWrite(myLed, LOW);
+}
+else{
+  Serial.print("Pressure sensor not recording proper data");
+}
+if (Sensor.getTemperature_degC() >= 0) {
+    digitalWrite(myLed, HIGH);
+    delay(10);
+    digitalWrite(myLed, LOW);
+}
+else{
+  Serial.print("Temprature sensor not recording proper data");
+}
   delay(1000);
 }
