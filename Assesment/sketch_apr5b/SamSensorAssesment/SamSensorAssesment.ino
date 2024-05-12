@@ -4,7 +4,7 @@
 
 //TEACHER COMMENT what is this being created for?
 long myTime;
-int myLed = 12;
+int myLed = 13;
 
 //TEACHER COMMENT so what are these?
 LPS25HB Sensor;
@@ -19,7 +19,7 @@ void setup() {
 
   //TEACHER COMMENT what is this checking?
   if (Sensor.isConnected() == false) {
-    Serial.println("BOARD HAS RECONECTED");
+    Serial.println("SENSORBOARD HAS FAILED TO CONNECT");
 
     while (1);
   }
@@ -27,13 +27,13 @@ void setup() {
   //TEACHER COMMENT should you also check the sdcard/resultStorage?
 
   resultStorage.append("resultStorage.txt");
+resultStorage.print("Time,Pressure,Temprature");
 
   resultStorage.syncFile();
 
   Serial.println("Done!");
 
 Serial.print("Time,Pressure,Temperature");
-resultStorage.print("Time,Pressure,Temprature");
 }
 
 //TEACHER COMMENT add a comment explaining what this is doing
