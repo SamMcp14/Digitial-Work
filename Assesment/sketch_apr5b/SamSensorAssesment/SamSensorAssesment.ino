@@ -4,7 +4,7 @@
 
 //TEACHER COMMENT what is this being created for?
 long myTime;
-int myLed = 13;
+const String FILE_NAME ="ResultStorage.txt";
 
 //TEACHER COMMENT so what are these?
 LPS25HB Sensor;
@@ -15,7 +15,6 @@ void setup() {
   Wire.begin();
   resultStorage.begin();
   Sensor.begin();
-  pinMode(myLed, OUTPUT);
 
   //TEACHER COMMENT what is this checking?
   if (Sensor.isConnected() == false) {
@@ -26,7 +25,7 @@ void setup() {
 
   //TEACHER COMMENT should you also check the sdcard/resultStorage?
 
-  resultStorage.append("resultStorage.txt");
+  resultStorage.append(FILE_NAME);
   resultStorage.print("Time,Pressure,Temprature");
 
   resultStorage.syncFile();
@@ -36,7 +35,7 @@ void setup() {
 
 //TEACHER COMMENT add a comment explaining what this is doing
 void loop() {
- 
+
   // if (Sensor.getPressure_hPa() >= 0) {
   //     digitalWrite(myLed, HIGH);
   //     delay(10);
@@ -59,32 +58,32 @@ void loop() {
 
 void writeToSDcard(bool debug) {
   if (debug) {
- myTime = millis();
-  Serial.print(myTime);  // prints time since program
-  resultStorage.print(myTime);
-  Serial.print(",");
-  resultStorage.print(",");
-  Serial.print(Sensor.getPressure_hPa());
-  resultStorage.print(Sensor.getPressure_hPa());
-  Serial.print(",");
-  resultStorage.print(",");
-  Serial.println(Sensor.getTemperature_degC());
-  resultStorage.println(Sensor.getTemperature_degC());
+    myTime = millis();
+    Serial.print(myTime);  // prints time since program
+    resultStorage.print(myTime);
+    Serial.print(",");
+    resultStorage.print(",");
+    Serial.print(Sensor.getPressure_hPa());
+    resultStorage.print(Sensor.getPressure_hPa());
+    Serial.print(",");
+    resultStorage.print(",");
+    Serial.println(Sensor.getTemperature_degC());
+    resultStorage.println(Sensor.getTemperature_degC());
 
-  resultStorage.syncFile();
+    resultStorage.syncFile();
   } else {
- myTime = millis();
- // Serial.print(myTime);  // prints time since program
-  resultStorage.print(myTime);
- // Serial.print(",");
-  resultStorage.print(",");
- // Serial.print(Sensor.getPressure_hPa());
-  resultStorage.print(Sensor.getPressure_hPa());
- // Serial.print(",");
-  resultStorage.print(",");
- // Serial.println(Sensor.getTemperature_degC());
-  resultStorage.println(Sensor.getTemperature_degC());
+    myTime = millis();
+    // Serial.print(myTime);  // prints time since program
+    resultStorage.println(myTime);
+    // Serial.print(",");
+    resultStorage.print(",");
+    // Serial.print(Sensor.getPressure_hPa());
+    resultStorage.println(Sensor.getPressure_hPa());
+    // Serial.print(",");
+    resultStorage.print(",");
+    // Serial.println(Sensor.getTemperature_degC());
+    resultStorage.println(Sensor.getTemperature_degC());
 
-  resultStorage.syncFile();
+    resultStorage.syncFile();
   }
 }
